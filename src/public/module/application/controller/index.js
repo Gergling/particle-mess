@@ -121,7 +121,7 @@ angular.module('application').controller("application.controller.index", [
                     }
                 };
             },
-            update;
+            update,
             diagnostics = {
                 energy: function () {
                     var energy = 0;
