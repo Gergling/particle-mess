@@ -161,9 +161,9 @@ angular.module('application').controller("application.controller.index", [
             // where particles are stuck together
             universe.particles.forEach(function (a, idx) {
                 universe.particles.forEach(function (b) {
-                    if (a !== b) {
+                    if (a !== b && !a.annihilated() && !b.annihilated()) {
                         if (a.interference(b)) {
-                            add.push(a.fusion(b));
+                            add.push(a.fusion(b)); // Fusion is adding energy to the universe
                         }
                     }
                 });
