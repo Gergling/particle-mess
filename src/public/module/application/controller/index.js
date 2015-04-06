@@ -122,6 +122,29 @@ angular.module('application').controller("application.controller.index", [
                 };
             },
             update;
+            diagnostics = {
+                energy: function () {
+                    var energy = 0;
+                    universe.particles.forEach(function (particle) {
+                        if (!particle.annihilated()) {
+                            energy += particle.energy();
+                        }
+                    });
+                    return energy;
+                },
+                energyList: function () {
+                    var energy = [ ];
+                    universe.particles.forEach(function (particle) {
+                        energy.push([
+                            "Energy=",
+                            particle.energy(),
+                            " ",
+                            (particle.annihilated()?"Annihilated":"Stable")
+                        ].join(""));
+                    });
+                    return energy;
+                }
+            };
 
         $scope.stop = false;
         $scope.cm = new CanvasManager(universe.width, universe.height);
