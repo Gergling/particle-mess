@@ -167,21 +167,26 @@ angular.module('application').controller("application.controller.index", [
                         }
                     }
                 });
-                if (a.annihilated()) {
-                    annihilate.push(idx);
-                }
-            });
-
-            // Destroy annihilated particles
-            annihilate.forEach(function (idx) {
-                universe.particles.splice(idx, 1);
             });
 
             universe.particles = universe.particles.concat(add);
 
             // Update particles
-            universe.particles.forEach(function (particle) {
-                particle.step();
+            universe.particles.forEach(function (particle, idx) {
+                // Possible annihilated particles here?
+                // This part includes fission, which might result in annihilated particles at the fusion process
+                if (particle.annihilated()) {
+                    annihilate.push(idx);
+                } else {
+                    particle.step();
+                }
+            });
+
+            var deleted = 0;
+            // Destroy annihilated particles
+            annihilate.forEach(function (idx) {
+                universe.particles.splice(idx - deleted, 1);
+                deleted += 1;
             });
 
             // Draw particles
