@@ -103,15 +103,21 @@ angular.module('application').controller("application.controller.index", [
                     return product;
                 };
                 this.step = function () {
-                    location.x += velocity.x;
-                    location.y += velocity.y;
-                    if (location.x < 0 || location.x > universe.width) {
+                    var x = location.x + velocity.x,
+                        y = location.y + velocity.y;
+
+                    if (x < 0 || x > universe.width) {
                         velocity.x = -velocity.x;
                         this.trigger();
+                    } else {
+                        location.x = x;
                     }
-                    if (location.y < 0 || location.y > universe.height) {
+
+                    if (y < 0 || y > universe.height) {
                         velocity.y = -velocity.y;
                         this.trigger();
+                    } else {
+                        location.y = y;
                     }
                 };
             },
