@@ -148,6 +148,13 @@ angular.module('application').controller("application.controller.index", [
                         this.trigger();
                     }
                 };
+                this.colour = function () {
+                    return {
+                        red: energy * 256 / universe.energy,
+                        green: energy * 256 / universe.energy,
+                        blue: energy * 256 / universe.energy
+                    };
+                };
             },
             update,
             diagnostics = {
@@ -220,8 +227,12 @@ angular.module('application').controller("application.controller.index", [
             // Draw particles
             ctx.fillStyle = "#222";
             ctx.fillRect(0, 0, universe.width, universe.height);
-            ctx.strokeStyle = "#fff";
             universe.particles.forEach(function (particle) {
+                ctx.strokeStyle = "rgb(" + [
+                    particle.colour().red,
+                    particle.colour().green,
+                    particle.colour().blue
+                ].join(", ") + ")";
                 ctx.beginPath();
                 ctx.arc(
                     particle.location().x,
