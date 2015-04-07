@@ -254,9 +254,7 @@ angular.module('application').controller("application.controller.index", [
             //$scope.report.finished = new Date();
             //$timeout(update, 1000);
             if (!$scope.stop) {
-                setTimeout(function () {
-                    update();
-                }, 50);
+                $timeout(update, 50);
             } else {
                 console.log("Stopped");
             }
