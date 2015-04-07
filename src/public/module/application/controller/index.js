@@ -102,22 +102,31 @@ angular.module('application').controller("application.controller.index", [
 
                     return product;
                 };
-                this.step = function () {
-                    var x = location.x + velocity.x,
+                this.move = function () {
+                    var report = { },
+                        x = location.x + velocity.x,
                         y = location.y + velocity.y;
 
                     if (x < 0 || x > universe.width) {
                         velocity.x = -velocity.x;
-                        this.trigger();
+                        report.bounce = true;
                     } else {
                         location.x = x;
                     }
 
                     if (y < 0 || y > universe.height) {
                         velocity.y = -velocity.y;
-                        this.trigger();
+                        report.bounce = true;
                     } else {
                         location.y = y;
+                    }
+                    return report;
+                };
+                this.step = function () {
+                    var report = this.move();
+
+                    if (report.bounce) {
+                        this.trigger();
                     }
                 };
             },
