@@ -149,9 +149,10 @@ angular.module('application').controller("application.controller.index", [
                     }
                 };
                 this.colour = function () {
+                    // Use x/y as red/green or whatever
                     return {
-                        red: energy * 256 / universe.energy,
-                        green: energy * 256 / universe.energy,
+                        red: Math.floor(location.x * 256 / universe.width),
+                        green: Math.floor(location.y * 256 / universe.height),
                         blue: energy * 256 / universe.energy
                     };
                 };
@@ -235,6 +236,9 @@ angular.module('application').controller("application.controller.index", [
                     particle.colour().red,
                     particle.colour().green,
                     particle.colour().blue
+                    //Math.floor(Math.random() * 256),
+                    //Math.floor(Math.random() * 256),
+                    //Math.floor(Math.random() * 256),
                 ].join(", ") + ")";
                 ctx.beginPath();
                 ctx.arc(
@@ -245,6 +249,7 @@ angular.module('application').controller("application.controller.index", [
                     Math.PI * 2
                     //true
                 );
+                ctx.closePath();
                 ctx.stroke();
             });
             if (diagnostics.energy() > universe.energy) {
