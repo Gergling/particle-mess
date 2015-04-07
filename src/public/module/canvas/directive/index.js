@@ -12,9 +12,11 @@ angular.module('canvas').directive("canvas", [
                 "$element",
 
                 function ($scope, $element) {
-                    var canvas = angular.element("<canvas>");
-                    canvas.width($scope.manager.width());
-                    canvas.height($scope.manager.height());
+                    var width = $scope.manager.width(),
+                        height = $scope.manager.height(),
+                        canvas = angular.element("<canvas width='" + width + "' height='" + height + "'>");
+
+                    canvas.css({background: '#444'});
 
                     $element.append(canvas);
 
