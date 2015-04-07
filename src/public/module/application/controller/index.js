@@ -60,14 +60,15 @@ angular.module('application').controller("application.controller.index", [
                     }
                 };
                 this.fission = function () {
-                    //var totalParticles = Math.floor(Math.random() * energy) + 1,
-                    var totalParticles = 100 - universe.particles.length,
+                    var totalParticles = Math.floor(Math.random() * energy / 5) + 1,
+                    //var totalParticles = 2,
                         i,
                         particles = [ ],
                         particle,
-                        e = energy / totalParticles;
+                        e = Math.floor(energy / totalParticles),
+                        scope = this,
+                        o = 0;
 
-                    //console.log("Total particles", totalParticles);
                     if (totalParticles > 1 && !this.annihilated()) {
                         // Energy distribution algorithm
                         for (i = 0; i < totalParticles; i += 1) {
@@ -77,6 +78,24 @@ angular.module('application').controller("application.controller.index", [
                         }
 
                         this.annihilate();
+
+                        // Additional particle for the gradual loss of energy in the universe.
+                        e = 0;
+                        particles.forEach(function (particle) {
+                            e += particle.energy();
+                        });
+                        o = universe.energy - diagnostics.energy() - e;
+                        if (o > 0) {
+                            particle = new Particle(o);
+                            particle.location(location.clone());
+                            particles.push(particle);
+                        }
+
+                        particles.forEach(function (particle) {
+                            while (particle.collision(scope)) {
+                                particle.move();
+                            }
+                        });
                     }
 
                     universe.particles = universe.particles.concat(particles);
