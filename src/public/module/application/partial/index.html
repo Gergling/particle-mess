@@ -1,4 +1,23 @@
 <div data-ng-controller="application.controller.index">
-    <div>{{report}}</div>
-    <div canvas="cm"></div>
+    <div class="container-full">
+        <div class="row">
+            <div class="col-xs-6">
+                <div canvas="cm" style="background-color: #422;"></div>
+            </div>
+            <div class="col-xs-6">
+                <div>Energy: {{report.energy}}</div>
+                <div>Stuff: {{report.stuff}}</div>
+                <div>Other: {{report.other}}</div>
+                <div>Particles:</div>
+                <div>Total: {{report.total}}</div>
+                <div data-ng-repeat="particle in report.particles">
+                    X = {{particle.location().x | number}},
+                    Y = {{particle.location().y | number}},
+                    Energy = {{particle.energy()}},
+                    Colour = {{particle.colour()}},
+                    Annihilated = {{particle.annihilated()}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
