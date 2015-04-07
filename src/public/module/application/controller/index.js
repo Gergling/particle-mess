@@ -68,7 +68,7 @@ angular.module('application').controller("application.controller.index", [
                         e = energy / totalParticles;
 
                     //console.log("Total particles", totalParticles);
-                    if (totalParticles > 1) {
+                    if (totalParticles > 1 && !this.annihilated()) {
                         // Energy distribution algorithm
                         for (i = 0; i < totalParticles; i += 1) {
                             particle = new Particle(e);
