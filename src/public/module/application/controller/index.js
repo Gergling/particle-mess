@@ -83,7 +83,7 @@ angular.module('application').controller("application.controller.index", [
                 };
                 this.annihilate = function () {annihilated = true; };
                 this.annihilated = function () {return annihilated; };
-                this.interference = function (particle) {
+                this.collision = function (particle) {
                     return (location.x < particle.location().x + particle.size().x)
                         && (location.x + size.x > particle.location().x)
                         && (location.y < particle.location().y + particle.size().y)
@@ -162,7 +162,7 @@ angular.module('application').controller("application.controller.index", [
             universe.particles.forEach(function (a, idx) {
                 universe.particles.forEach(function (b) {
                     if (a !== b && !a.annihilated() && !b.annihilated()) {
-                        if (a.interference(b)) {
+                        if (a.collision(b)) {
                             add.push(a.fusion(b)); // Fusion is adding energy to the universe
                         }
                     }
