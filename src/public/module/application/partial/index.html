@@ -10,13 +10,33 @@
                 <div>Other: {{report.other}}</div>
                 <div>Particles:</div>
                 <div>Total: {{report.total}}</div>
-                <div data-ng-repeat="particle in report.particles">
+                <table class="table table-bordered">
+                    <tr>
+                        <td>X</td>
+                        <td>Y</td>
+                        <td>Energy</td>
+                        <td>Colour (r, g, b)</td>
+                        <td>Annihilated</td>
+                    </tr>
+                    <tr data-ng-repeat="particle in report.particles">
+                        <td>{{particle.location().x | number}}</td>
+                        <td>{{particle.location().y | number}}</td>
+                        <td>{{particle.energy()}}</td>
+                        <td>
+                            {{particle.colour().red}},
+                            {{particle.colour().green}},
+                            {{particle.colour().blue}}
+                        </td>
+                        <td>{{particle.annihilated()}}</td>
+                    </tr>
+                </table>
+                <!--<div data-ng-repeat="particle in report.particles">
                     X = {{particle.location().x | number}},
                     Y = {{particle.location().y | number}},
                     Energy = {{particle.energy()}},
                     Colour = {{particle.colour()}},
                     Annihilated = {{particle.annihilated()}}
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
