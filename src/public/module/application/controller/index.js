@@ -220,6 +220,9 @@ angular.module('application').controller("application.controller.index", [
             var deleted = 0;
             // Destroy annihilated particles
             annihilate.forEach(function (idx) {
+                if (!universe.particles[idx - deleted].annihilated()) {
+                    console.log("Invalid particle annihilation", universe.particles[idx - deleted]);
+                }
                 universe.particles.splice(idx - deleted, 1);
                 deleted += 1;
             });
@@ -244,11 +247,17 @@ angular.module('application').controller("application.controller.index", [
                 );
                 ctx.stroke();
             });
-            if (universe.particles.length > 100) {
+            if (diagnostics.energy() > universe.energy) {
                 $scope.stop = true;
-                console.log("Too many particles", universe.particles.length);
+                console.log("Too much energy");
+                console.log("Particles", universe.particles.length);
+                console.log("Energy", diagnostics.energy(), "(should equal", universe.energy + ")");
+                console.log("Fusions", add.length);
+                console.log("Particles", diagnostics.energyList());
             }
             $scope.report.total = universe.particles.length;
+            $scope.report.energy = diagnostics.energy();
+            $scope.report.particles = universe.particles;
 
             //finished = new Date();
             //$scope.report.finished = new Date();
