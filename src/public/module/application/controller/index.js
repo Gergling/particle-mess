@@ -55,7 +55,7 @@ angular.module('application').controller("application.controller.index", [
                     return location;
                 };
                 this.trigger = function () {
-                    if (Math.random() * universe.energy < energy) {
+                    if (Math.random() * universe.energy < energy && !this.annihilated()) {
                         this.fission();
                     }
                 };
