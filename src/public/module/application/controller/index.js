@@ -22,7 +22,7 @@ angular.module('application').controller("application.controller.index", [
                 this.height = function () {return height; };
             },
             universe = {
-                fissions: [ ],
+                fissions: [ ], // Todo: Remove as unused.
                 particles: [ ],
                 energy: 100,
                 width: 500,
